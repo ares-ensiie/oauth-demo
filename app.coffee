@@ -20,10 +20,9 @@ else
   oauthDemoURL = process.env.OAUTH_DEMO_URL || "http://oauth-demo.dev"
 
 app.get '/', (req, res) ->
-  res.render 'index.jade', me: req.session.me
+  res.render 'index.jade', me: req.session.me, token: req.session.access_token, api_url: apiIiensURL
 
 app.get '/auth', (req, res) ->
-  console.log "-----> NEW REQUEST"
   code = req.param('code')
   if code
     request.post
@@ -40,14 +39,30 @@ app.get '/auth', (req, res) ->
           console.log body
           res.send body
         else
-          console.log "avec acces token #{body.access_token}"
           request
             url: apiIiensURL + "/users/self?access_token=#{body.access_token}"
             (err, response, me) ->
-              req.session.me = JSON.parse(me).avatar.url
+              req.session.me = JSON.parse(me)
+              req.session.access_token = body.access_token
               res.redirect '/'
 
 app.get '/auth/ares', (req, res) ->
   res.redirect iiensURL + "/oauth/authorize?response_type=code&client_id=#{oAuthClientId}&client_secret=#{oAuthClientSecret}&redirect_uri=" + oauthDemoURL + "/auth"
+
+app.post '/api_request', (req, res) ->
+  request
+    url: apiIiensURL + req.body.endpoint + "?access_token=" + req.session.access_token +
+      "&client_id=" + oAuthClientId + "&client_secret=" + oAuthClientSecret
+    (err, response, data) ->
+      if response.statusCode == 200
+        res.send data
+      else if response.statusCode == 401
+        req.session.access_token = null
+        req.session.me = null
+        res.status(401)
+        res.send("Unauthorize")
+      else
+        console.log("Erreur API : " + response.statusCode)
+        res.send "Erreur"
 
 app.listen process.env.PORT || 3000

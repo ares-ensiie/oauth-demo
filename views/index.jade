@@ -9,7 +9,16 @@ html
     title OAuth2 Demo
   body
     h1 Démonstration OAuth
-    if me
-      img(src="#{me}")
+    if token
+      p Tu es
+        = me.first_name + " " + me.last_name
+      h2 Faire une requête sur l'API :
+
+      pre= api_url
+      input(type="text", placeholder="/users/self")
+      input(type="submit")
+
+      pre
+        code
     else
       a(href="/auth/ares") sign in with ares
