@@ -2,6 +2,7 @@ express = require 'express'
 request = require 'request'
 
 app = express()
+app.use require('connect-assets')()
 app.use express.bodyParser()
 app.use express.cookieParser()
 app.use express.cookieSession(secret: process.env.SESSION_SECRET || 'test')

@@ -7,7 +7,9 @@
     "express": "~3.1.0",
     "jade": "~0.28.2",
     "request": "~2.14.0",
-    "coffee-script": "1.6"
+    "coffee-script": "1.6",
+    "connect-assets": "~2.4.1",
+    "stylus": "~0.32.1"
   },
   "devDependencies": {},
   "scripts": {
