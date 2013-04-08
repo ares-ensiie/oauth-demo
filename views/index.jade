@@ -10,8 +10,7 @@ html
   body
     h1 Démonstration OAuth
     if token
-      p Tu es
-        = me.first_name + " " + me.last_name
+      p Tu es #{me.first_name + " " + me.last_name}
       h2 Faire une requête sur l'API :
 
       pre= api_url
