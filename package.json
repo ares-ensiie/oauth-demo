@@ -1,7 +1,7 @@
 {
-  "name": "sxb-or",
-  "version": "0.0.0",
-  "description": "ERROR: No README.md file found!",
+  "name": "oauth-demo",
+  "version": "0.0.1",
+  "description": "Give a sample showing how to use our OAuth2 authentication",
   "main": "index.js",
   "dependencies": {
     "express": "~3.1.0",
