@@ -32,3 +32,9 @@ $ ->
   $('input[type=text]').on 'keypress', send_api_request
   $('input[type=submit]').on 'click', send_api_request
   
+  $("#self").on "click", ->
+    $('input[type=text]').val("/users/self")
+    $('input[type=submit]').click()
+  $("#everybody").on "click", ->
+    $('input[type=text]').val("/promotions")
+    $('input[type=submit]').click()
