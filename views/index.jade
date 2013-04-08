@@ -10,14 +10,15 @@ html
   body
     h1 Démonstration OAuth
     if token
-      p Tu es #{me.first_name + " " + me.last_name}
+      p.banner Bienvenu(e) #{me.first_name + " " + me.last_name}
       h2 Faire une requête sur l'API :
-
       pre= api_url
       input(type="text", placeholder="/users/self")
       input(type="submit")
-
+      ul.tags
+        li#self Self
+        li#everybody Everybody
       pre
         code
     else
-      a(href="/auth/ares") sign in with ares
+      a.banner(href="/auth/ares") sign in with ares
