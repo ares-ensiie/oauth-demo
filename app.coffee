@@ -72,6 +72,9 @@ app.post '/api_request', (req, res) ->
     (err, response, data) ->
       if response.statusCode == 200
         res.send data
+      # Si le status est 401, c'est que le token n'est plus valide (expiration par exemple)
+      # Dans ce cas nous supprimons le cookie du client, pour qu'il soit redirigé vers la
+      # page d'accueil.
       else if response.statusCode == 401
         req.session = null
         res.status(401)
