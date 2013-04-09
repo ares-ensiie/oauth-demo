@@ -24,7 +24,7 @@ send_api_request = (event) ->
           
       error: (xhr, type) ->
         if xhr.statusCode == 401
-          location.reload(true)
+          location.reload()
         else
           alert(xhr.response)
 

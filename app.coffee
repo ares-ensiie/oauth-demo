@@ -60,6 +60,11 @@ app.get '/auth', (req, res) ->
               req.session.access_token = body.access_token
               res.redirect '/'
 
+# Pour déconnecter un utilisateur, il suffit de détruire son cookie de session
+app.get '/deauth', (req, res) ->
+  req.session = null
+  res.redirect('/')
+
 app.post '/api_request', (req, res) ->
   request
     url: apiIiensURL + req.body.endpoint + "?access_token=" + req.session.access_token +
@@ -68,8 +73,7 @@ app.post '/api_request', (req, res) ->
       if response.statusCode == 200
         res.send data
       else if response.statusCode == 401
-        req.session.access_token = null
-        req.session.me = null
+        req.session = null
         res.status(401)
         res.send("Unauthorize")
       else
