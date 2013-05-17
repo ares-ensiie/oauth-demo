@@ -11,7 +11,7 @@ oAuthClientId = process.env.CLIENT_ID
 oAuthClientSecret = process.env.CLIENT_SECRET
 
 if process.env.NODE_ENV == "production"
-  iiensURL = "http://iiens.eu"
+  iiensURL = "http://www.iiens.eu"
   apiIiensURL = "http://api.iiens.eu"
   oauthDemoURL = "http://oauth-demo.iiens.eu"
 else
@@ -48,6 +48,9 @@ app.get '/auth', (req, res) ->
         redirect_uri: oauthDemoURL + '/auth'
         code: code
       (err, response, body) ->
+        console.log "Error : " + err
+        console.log "Response : " + response
+        console.log body
         body = JSON.parse(body)
         unless body.access_token?
           console.log body
