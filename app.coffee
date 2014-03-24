@@ -23,7 +23,7 @@ app.get '/', (req, res) ->
   res.render 'index.jade', me: req.session.me, token: req.session.access_token, api_url: apiIiensURL
 
 # Pour identifier le client lorsqu'il clique sur "se connecter avec ARES", il est nécessaire
-# de le rediriger vers /oauth/authorize en utilisant le client id et client secret. Cette page
+# de le rediriger vers /oauth/authorize en utilisant le client id. Cette page
 # va alors le rediriger vers une page de login, et une fois connecté, demandera au client s'il
 # autorise l'application à utiliser ses données.
 #
@@ -31,7 +31,7 @@ app.get '/', (req, res) ->
 # /!\ Attention, le paramètre donné ici doit coincider avec ce qui a été écrit lors de la création
 # de l'application sur developers.iiens.eu
 app.get '/auth/ares', (req, res) ->
-  res.redirect iiensURL + "/oauth/authorize?response_type=code&client_id=#{oAuthClientId}&client_secret=#{oAuthClientSecret}&redirect_uri=" + oauthDemoURL + "/auth"
+  res.redirect iiensURL + "/oauth/authorize?response_type=code&client_id=#{oAuthClientId}&redirect_uri=" + oauthDemoURL + "/auth"
 
 # Une fois authentifié sur le service d'OAuth, iiens.eu chez nous, l'utilisateur est redirigé sur ici 
 # sur /auth avec come paramètre un attribut code, nous faisons donc une requête sur http://iiens.eu/oauth/token
